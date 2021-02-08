@@ -350,7 +350,43 @@ include device/qcom/wlan/msmnile/wlan.mk
 
 TARGET_MOUNT_POINTS_SYMLINKS := false
 
+<<<<<<< HEAD
 TARGET_USES_MKE2FS := true
+=======
+# Rootdir
+PRODUCT_PACKAGES += \
+    init.class_main.sh \
+    init.crda.sh \
+    init.mdm.sh \
+    init.qcom.class_core.sh \
+    init.qcom.coex.sh \
+    init.qcom.early_boot.sh \
+    init.qcom.efs.sync.sh \
+    init.qcom.post_boot.sh \
+    init.qcom.sdio.sh \
+    init.qcom.sensors.sh \
+    init.qcom.sh \
+    init.qcom.usb.sh \
+    init.qti.chg_policy.sh \
+    init.qti.dcvs.sh \
+    init.qti.qcv.sh \
+    qca6234-service.sh
+
+PRODUCT_PACKAGES += \
+    fstab.qcom \
+    init.qcom.factory.rc \
+    init.qcom.rc \
+    init.qcom.usb.rc \
+    init.recovery.qcom.rc \
+    init.target.rc \
+    ueventd.qcom.rc
+
+# Sensors
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-impl \
+    android.hardware.sensors@1.0-service \
+    libsensorndkbridge
+>>>>>>> 9ddc9bd5... sm8150-common: Import rootdir files
 
 PRODUCT_PROPERTY_OVERRIDES += \
 ro.crypto.volume.filenames_mode = "aes-256-cts" \

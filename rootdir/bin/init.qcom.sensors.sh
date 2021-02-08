@@ -1,4 +1,5 @@
-# Copyright (c) 2016, 2018, 2020, The Linux Foundation. All rights reserved.
+#!/vendor/bin/sh
+# Copyright (c) 2020 The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,35 +26,8 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-on early-init
-    write /proc/sys/kernel/kptr_restrict 0
-
-# this will make sure you have /data ready and then you try to create the dir.
-on post-fs-data
-    # Create directory for Graphics applications
-    mkdir /data/vendor/gpu 0777 system system
-    # Create directory for SCVE applications
-    mkdir /data/vendor/scve 0777 system system
-
-# Coresight early boot service
-service cs-early-boot /vendor/bin/sh /vendor/bin/init.qcom.debug.sh
-    class core
-    user root
-    oneshot
-    seclabel u:r:qti-testscripts:s0
-
-on property:sys.boot_completed=1
-    start cs-post-boot
-
-on property:sys.vendor.dbg.coresight.enable=1
-    write /mnt/vendor/persist/coresight/enable 1
-
-on property:sys.vendor.dbg.coresight.enable=0
-    write /mnt/vendor/persist/coresight/enable 0
-
-service DiagDaemon /system/vendor/bin/diag_socket_log -f /sdcard/ipaddress.txt
-    class late_start
-    oneshot
-    disabled
-    user root
-    group root system log diag net_raw
+#
+# Function to start sensors for SSC enabled platforms
+#
+cp /vendor/etc/sensors/scripts/* /data/vendor/sensors/scripts/
+chmod a+rw /data/vendor/sensors/scripts/*

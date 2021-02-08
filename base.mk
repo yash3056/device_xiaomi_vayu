@@ -290,54 +290,29 @@ HOSTAPD += hostapd.accept
 I420CC := libI420colorconvert
 
 #INIT
-INIT := init.qcom.composition_type.sh
-INIT += init.target.8x25.sh
-INIT += init.qcom.mdm_links.sh
-INIT += init.qcom.modem_links.sh
-INIT += init.qcom.sensor.sh
-INIT += init.target.rc
-INIT += init.qti.ims.sh
+INIT := init.class_main.sh
+INIT += init.crda.sh
+INIT += init.mdm.sh
+INIT += init.qcom.class_core.sh
 INIT += init.qcom.coex.sh
 INIT += init.qcom.early_boot.sh
-INIT += init.qcom.post_boot.sh
-ifeq ($(TARGET_BOARD_AUTO), true)
-INIT += sku-info.sh
-endif
-INIT += init.qcom.syspart_fixup.sh
-INIT += init.qcom.rc
-INIT += init.recovery.qcom.rc
-INIT += init.qcom.factory.rc
-INIT += init.qcom.sdio.sh
-INIT += init.qcom.sh
-INIT += init.qcom.class_core.sh
-INIT += init.class_main.sh
-INIT += init.qcom.wifi.sh
-INIT += vold.fstab
-INIT += init.qcom.ril.path.sh
-INIT += init.qcom.usb.rc
-INIT += init.msm.usb.configfs.rc
-INIT += init.qcom.usb.sh
-INIT += usf_post_boot.sh
 INIT += init.qcom.efs.sync.sh
-INIT += ueventd.qcom.rc
-INIT += qca6234-service.sh
-INIT += ssr_setup
-INIT += enable_swap.sh
-INIT += init.mdm.sh
-INIT += fstab.qcom
-INIT += fstab.qti
-INIT += fstab.default
-INIT += fstab.emmc
+INIT += init.qcom.post_boot.sh
+INIT += init.qcom.sdio.sh
 INIT += init.qcom.sensors.sh
-INIT += init.qcom.crashdata.sh
-INIT += init.qcom.vendor.rc
-INIT += init.target.vendor.rc
-INIT += init.veth_ipa_config.sh
-ifeq ($(strip $(TARGET_BOARD_AUTO)),true)
-ifneq ($(strip $(ENABLE_HYP)),true)
-INIT += init.qti.can.sh
-endif
-endif
+INIT += init.qcom.sh
+INIT += init.qcom.usb.sh
+INIT += init.qti.chg_policy.sh
+INIT += init.qti.dcvs.sh
+INIT += init.qti.qcv.sh
+INIT += qca6234-service.sh
+INIT += fstab.qcom
+INIT += init.qcom.factory.rc
+INIT += init.qcom.rc
+INIT += init.qcom.usb.rc
+INIT += init.recovery.qcom.rc 
+INIT += init.target.rc
+INIT += ueventd.qcom.rc
 
 #IPROUTE2
 IPROUTE2 := ip
@@ -1023,13 +998,6 @@ PRODUCT_PACKAGES += tcmiface
 # healthd libaray expanded for mode charger
 PRODUCT_PACKAGES += libhealthd.msm
 
-#intialise PRODUCT_PACKAGES_DEBUG list for debug modules
-PRODUCT_PACKAGES_DEBUG := init.qcom.testscripts.sh
-
-#Add init.qcom.test.rc to PRODUCT_PACKAGES_DEBUG list
-PRODUCT_PACKAGES_DEBUG += init.qcom.test.rc
-PRODUCT_PACKAGES_DEBUG += init.qcom.debug.sh
-
 #NANOPB_LIBRARY_NAME := libnanopb-c-2.8.0
 
 PRODUCT_PACKAGES_DEBUG += $(TELEPHONY_DBG)
@@ -1114,11 +1082,6 @@ PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.vulkan.version
 else
 PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_1.xml
 endif
-endif
-
-ifneq ($(strip $(TARGET_BUILD_VARIANT)),user)
-PRODUCT_COPY_FILES += \
-    device/qcom/common/rootdir/etc/init.qcom.testscripts.sh:$(TARGET_COPY_OUT_PRODUCT)/etc/init.qcom.testscripts.sh
 endif
 
 ifneq ($(strip $(TARGET_USES_RRO)),true)
@@ -1206,23 +1169,6 @@ else
     PRODUCT_PROPERTY_OVERRIDES += \
         persist.vendor.qcomsysd.enabled=1
 endif
-
-PRODUCT_PACKAGES_DEBUG += \
-    init.qcom.debug.sh \
-    init.qcom.debug-sdm660.sh \
-    init.qcom.debug-sdm710.sh \
-    init.qti.debug-msmnile-apps.sh \
-    init.qti.debug-msmnile-modem.sh \
-    init.qti.debug-msmnile-slpi.sh \
-    init.qti.debug-talos.sh \
-    init.qti.debug-msmnile.sh \
-    init.qti.debug-kona.sh \
-    init.qti.debug-lito.sh \
-    init.qti.debug-trinket.sh \
-    init.qti.debug-atoll.sh \
-    init.qti.debug-lagoon.sh \
-    init.qti.debug-bengal.sh \
-    init.qti.debug-khaje.sh
 
 PRODUCT_PACKAGES += liboemaids_system
 PRODUCT_PACKAGES += liboemaids_vendor
