@@ -331,10 +331,7 @@ PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
 PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 
-ifneq ($(strip $(TARGET_USES_RRO)),true)
-DEVICE_PACKAGE_OVERLAYS += device/qcom/msmnile/overlay
-endif
-
+DEVICE_PACKAGE_OVERLAYS += device/xiaomi/vayu/overlay
 
 #Enable vndk-sp Libraries
 PRODUCT_PACKAGES += vndk_package
