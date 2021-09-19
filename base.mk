@@ -1,50 +1,10 @@
 # define flag to determine the kernel
-TARGET_KERNEL_VERSION ?= $(shell ls kernel | grep "msm-*" | sed 's/msm-//')
-
+TARGET_KERNEL_VERSION := 4.14
 # Set TARGET_USES_NEW_ION for 4.14 and higher kernels
-ifeq ($(TARGET_KERNEL_VERSION),$(filter $(TARGET_KERNEL_VERSION),3.18 4.4 4.9))
-TARGET_USES_NEW_ION := false
-else
 TARGET_USES_NEW_ION := true
-endif
 
-# Board platforms lists to be used for
 # TARGET_BOARD_PLATFORM specific featurization
-QCOM_BOARD_PLATFORMS += msm8974
-QCOM_BOARD_PLATFORMS += msm8610
-QCOM_BOARD_PLATFORMS += msm8226
-QCOM_BOARD_PLATFORMS += apq8084
-QCOM_BOARD_PLATFORMS += mpq8092
-QCOM_BOARD_PLATFORMS += msm_bronze
-QCOM_BOARD_PLATFORMS += msm8916
-QCOM_BOARD_PLATFORMS += msm8916_32
-QCOM_BOARD_PLATFORMS += msm8916_32_512
-QCOM_BOARD_PLATFORMS += msm8916_64
-QCOM_BOARD_PLATFORMS += msm8994
-QCOM_BOARD_PLATFORMS += msm8909
-QCOM_BOARD_PLATFORMS += msm8909_512
-QCOM_BOARD_PLATFORMS += msm8992
-QCOM_BOARD_PLATFORMS += msm8996
-QCOM_BOARD_PLATFORMS += msm8952
-QCOM_BOARD_PLATFORMS += msm8937
-QCOM_BOARD_PLATFORMS += msm8953
-QCOM_BOARD_PLATFORMS += msm8998
-QCOM_BOARD_PLATFORMS += apq8098_latv
-QCOM_BOARD_PLATFORMS += sdm660
-QCOM_BOARD_PLATFORMS += sdm845
 QCOM_BOARD_PLATFORMS += msmnile
-QCOM_BOARD_PLATFORMS += sdmshrike
-QCOM_BOARD_PLATFORMS += sdm710
-QCOM_BOARD_PLATFORMS += msmnile_au
-QCOM_BOARD_PLATFORMS += msmnile_tb
-QCOM_BOARD_PLATFORMS += qcs605
-QCOM_BOARD_PLATFORMS += $(MSMSTEPPE)
-QCOM_BOARD_PLATFORMS += kona
-QCOM_BOARD_PLATFORMS += lito
-QCOM_BOARD_PLATFORMS += atoll
-QCOM_BOARD_PLATFORMS += $(TRINKET)
-
-QSD8K_BOARD_PLATFORMS := qsd8k
 
 TARGET_USE_VENDOR_CAMERA_EXT := true
 
@@ -65,51 +25,10 @@ SKIP_BOOT_JARS_CHECK := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
 #List of targets that use video hw
-MSM_VIDC_TARGET_LIST := msm8974 msm8610 msm8226 apq8084 msm8916 msm8994 msm8909 msm8992 msm8996 msm8952 msm8937 msm8953 msm8998 apq8098_latv sdm660 sdm845 sdm710 qcs605 msmnile sdmshrike $(MSMSTEPPE) kona $(TRINKET)
+MSM_VIDC_TARGET_LIST := msmnile
 
 #List of targets that use master side content protection
-MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660 sdm845 apq8098_latv sdm710 qcs605 msmnile sdmshrike $(MSMSTEPPE) $(TRINKET) lito kona atoll
-
-#List of targets where Vulkan feature level is restricted to 0
-VULKAN_FEATURE_LEVEL_0_TARGETS_LIST := msm8937_32 msm8937_64 sdm660_32 sdm660_64 msm8998 msm8998_32 msm8996 msm8953_64 msm8953_32
-
-# Below projects/packages with LOCAL_MODULEs will be used by
-# PRODUCT_PACKAGES to build LOCAL_MODULEs that are tagged with
-# optional tag, which will not be available on target unless
-# explicitly list here. Where project corresponds to the vars here
-# in CAPs.
-
-#ALSA
-ALSA_HARDWARE := alsa.msm8960
-ALSA_HARDWARE += alsa.msm8974
-ALSA_HARDWARE += alsa.msm8226
-ALSA_HARDWARE += alsa.msm8610
-ALSA_HARDWARE += alsa.apq8084
-
-ALSA_UCM := snd_soc_msm
-ALSA_UCM += snd_soc_msm_2x
-ALSA_UCM += snd_soc_msm_2x_mpq
-ALSA_UCM += snd_soc_msm_2x_Fusion3
-ALSA_UCM += snd_soc_msm_Sitar
-ALSA_UCM += snd_soc_msm_auxpcm
-ALSA_UCM += snd_soc_msm_2x_auxpcm
-ALSA_UCM += snd_soc_msm_2x_mpq_auxpcm
-ALSA_UCM += snd_soc_msm_2x_Fusion3_auxpcm
-ALSA_UCM += snd_soc_msm_Sitar_auxpcm
-ALSA_UCM += snd_soc_msm_Taiko
-ALSA_UCM += snd_soc_msm_Taiko_CDP
-ALSA_UCM += snd_soc_msm_Taiko_Fluid
-ALSA_UCM += snd_soc_msm_Taiko_liquid
-ALSA_UCM += snd_soc_apq_Taiko_DB
-ALSA_UCM += snd_soc_msm_I2SFusion
-ALSA_UCM += snd_soc_msm_Tapan
-ALSA_UCM += snd_soc_msm_TapanLite
-ALSA_UCM += snd_soc_msm_Tapan_SKUF
-ALSA_UCM += snd_soc_msm_TapanLite_SKUF
-ALSA_UCM += snd_soc_msm_8x10_wcd
-ALSA_UCM += snd_soc_msm_8x10_wcd_skuab
-ALSA_UCM += snd_soc_msm_8x10_wcd_skuaa
-ALSA_UCM += snd_soc_msm_samarium_Tapan
+MASTER_SIDE_CP_TARGET_LIST := msmnile
 
 #ANGLE
 ANGLE := libangle
@@ -120,71 +39,10 @@ APPOPS_POLICY := appops_policy.xml
 #ATRACE_HAL
 ATRACE_HAL := android.hardware.atrace@1.0-service
 
-AUDIO_HARDWARE := audio.primary.mpq8064
-AUDIO_HARDWARE += audio.primary.apq8084
-AUDIO_HARDWARE += audio.primary.msm8960
-AUDIO_HARDWARE += audio.primary.msm8974
-AUDIO_HARDWARE += audio.primary.msm8226
-AUDIO_HARDWARE += audio.primary.msm8660
-AUDIO_HARDWARE += audio.primary.msm8610
-#AUDIO_HARDWARE += audio.primary.msm7627_surf
-AUDIO_HARDWARE += audio.primary.msm7627a
-AUDIO_HARDWARE += audio.primary.msm7630_surf
-AUDIO_HARDWARE += audio.primary.msm7630_fusion
-#AUDIO_HARDWARE += audio.primary.default
 AUDIO_HARDWARE += audio.a2dp.default
 AUDIO_HARDWARE += audio.usb.default
 AUDIO_HARDWARE += audio.r_submix.default
-AUDIO_HARDWARE += audio.primary.mpq8092
-AUDIO_HARDWARE += audio.primary.msm8916
-AUDIO_HARDWARE += audio.primary.msm8909
-AUDIO_HARDWARE += audio.primary.msm8994
-AUDIO_HARDWARE += audio.primary.msm8992
-AUDIO_HARDWARE += audio.primary.msm8996
-AUDIO_HARDWARE += audio.primary.msm8952
-AUDIO_HARDWARE += audio.primary.msm8937
-AUDIO_HARDWARE += audio.primary.msm8953
-AUDIO_HARDWARE += audio.primary.msmgold
-AUDIO_HARDWARE += audio.primary.msm8998
-AUDIO_HARDWARE += audio.primary.sdm660
-AUDIO_HARDWARE += audio.primary.sdm845
-AUDIO_HARDWARE += audio.primary.apq8098_latv
-AUDIO_HARDWARE += audio.primary.sdm710
-AUDIO_HARDWARE += audio.primary.qcs605
-ifeq ($(TARGET_BOARD_AUTO), true)
-AUDIO_HARDWARE += audio.primary.msmnile.casa
-endif
 AUDIO_HARDWARE += audio.primary.msmnile
-AUDIO_HARDWARE += audio.primary.sdmshrike
-AUDIO_HARDWARE += audio.primary.$(MSMSTEPPE)
-AUDIO_HARDWARE += audio.primary.kona
-AUDIO_HARDWARE += audio.primary.lito
-AUDIO_HARDWARE += audio.primary.$(TRINKET)
-#
-AUDIO_POLICY := audio_policy.mpq8064
-AUDIO_POLICY += audio_policy.apq8084
-AUDIO_POLICY += audio_policy.msm8960
-AUDIO_POLICY += audio_policy.msm8974
-AUDIO_POLICY += audio_policy.msm8226
-AUDIO_POLICY += audio_policy.msm8660
-AUDIO_POLICY += audio_policy.msm8610
-AUDIO_POLICY += audio_policy.mpq8092
-#AUDIO_POLICY += audio_policy.msm7627_surf
-AUDIO_POLICY += audio_policy.msm7627a
-AUDIO_POLICY += audio_policy.msm7630_surf
-AUDIO_POLICY += audio_policy.msm7630_fusion
-#AUDIO_POLICY += audio_policy.default
-AUDIO_POLICY += audio_policy.conf
-AUDIO_POLICY += audio_policy_8064.conf
-AUDIO_POLICY += audio_policy.msm8916
-AUDIO_POLICY += audio_policy.msm8909
-AUDIO_POLICY += audio_policy.msm8994
-AUDIO_POLICY += audio_policy.msm8992
-AUDIO_POLICY += audio_policy.msm8996
-AUDIO_POLICY += audio_policy.msm8952
-AUDIO_POLICY += audio_policy.msm8937
-AUDIO_POLICY += audio_policy.msm8953
-AUDIO_POLICY += audio_policy.msmgold
 
 #HAL Wrapper
 AUDIO_WRAPPER := libqahw
@@ -224,12 +82,6 @@ CHROMIUM += libwebviewchromium_plat_support
 
 #CIMAX
 CIMAX := libcimax_spi
-
-ifneq ($(TARGET_HAS_LOW_RAM),true)
-#CM
-CM :=CMFileManager
-#CM += Trebuchet
-endif
 
 #CONNECTIVITY
 CONNECTIVITY := libcnefeatureconfig
@@ -439,134 +291,16 @@ LIBGESTURES := libgestures
 LIBGESTURES += gestures.msm8960
 
 #LIBGRALLOC
-LIBGRALLOC := gralloc.default
-LIBGRALLOC += gralloc.msm8660
-LIBGRALLOC += gralloc.msm8960
-LIBGRALLOC += gralloc.msm8974
-LIBGRALLOC += gralloc.msm8226
-LIBGRALLOC += gralloc.msm8610
-LIBGRALLOC += gralloc.msm8909
-LIBGRALLOC += gralloc.msm8916
-LIBGRALLOC += gralloc.msm8994
-LIBGRALLOC += gralloc.msm8992
-LIBGRALLOC += gralloc.apq8084
-LIBGRALLOC += gralloc.mpq8092
-LIBGRALLOC += gralloc.msm7k
-LIBGRALLOC += gralloc.msm7630_surf
-LIBGRALLOC += gralloc.msm7630_fusion
-LIBGRALLOC += gralloc.msm7627_surf
-LIBGRALLOC += gralloc.msm7627_6x
-LIBGRALLOC += gralloc.msm7627a
-LIBGRALLOC += gralloc.msm8996
-LIBGRALLOC += gralloc.msm8952
-LIBGRALLOC += gralloc.msm8937
-LIBGRALLOC += gralloc.msm8953
-LIBGRALLOC += gralloc.msm8998
 LIBGRALLOC += gralloc.msmnile
-LIBGRALLOC += gralloc.sdmshrike
-LIBGRALLOC += gralloc.kona
-LIBGRALLOC += gralloc.sdm845
-LIBGRALLOC += gralloc.apq8098_latv
-LIBGRALLOC += libmemalloc
-LIBGRALLOC += gralloc.sdm630
-LIBGRALLOC += gralloc.sdm660
-LIBGRALLOC += gralloc.sdm710
-LIBGRALLOC += gralloc.qcs605
-LIBGRALLOC += gralloc.$(MSMSTEPPE)
-LIBGRALLOC += gralloc.$(TRINKET)
 
 #memtrack
-LIBMEMTRACK := memtrack.default
-LIBMEMTRACK += memtrack.msm8974
-LIBMEMTRACK += memtrack.msm8226
-LIBMEMTRACK += memtrack.msm8909
-LIBMEMTRACK += memtrack.msm8916
-LIBMEMTRACK += memtrack.msm8994
-LIBMEMTRACK += memtrack.msm8610
-LIBMEMTRACK += memtrack.apq8084
-LIBMEMTRACK += memtrack.mpq8092
-LIBMEMTRACK += memtrack.msm8996
-LIBMEMTRACK += memtrack.msm8952
-LIBMEMTRACK += memtrack.msm8937
-LIBMEMTRACK += memtrack.msm8953
-LIBMEMTRACK += memtrack.msm8998
 LIBMEMTRACK += memtrack.msmnile
-LIBMEMTRACK += memtrack.sdmshrike
-LIBMEMTRACK += memtrack.kona
-LIBMEMTRACK += memtrack.sdm660
-LIBMEMTRACK += memtrack.sdm845
-LIBMEMTRACK += memtrack.apq8098_latv
-LIBMEMTRACK += memtrack.sdm710
-LIBMEMTRACK += memtrack.qcs605
-LIBMEMTRACK += memtrack.$(MSMSTEPPE)
-LIBMEMTRACK += memtrack.$(TRINKET)
 
 #LIBLIGHTS
-LIBLIGHTS := lights.msm8660
-LIBLIGHTS += lights.msm8960
-LIBLIGHTS += lights.msm8974
-LIBLIGHTS += lights.msm8226
-LIBLIGHTS += lights.msm8909
-LIBLIGHTS += lights.msm8916
-LIBLIGHTS += lights.msm8994
-LIBLIGHTS += lights.msm8992
-LIBLIGHTS += lights.msm7k
-LIBLIGHTS += lights.msm7630_surf
-LIBLIGHTS += lights.msm7630_fusion
-LIBLIGHTS += lights.msm7627_surf
-LIBLIGHTS += lights.msm7627_6x
-LIBLIGHTS += lights.msm7627a
-LIBLIGHTS += lights.msm8610
-LIBLIGHTS += lights.apq8084
-LIBLIGHTS += lights.msm8996
-LIBLIGHTS += lights.msm8952
-LIBLIGHTS += lights.msm8937
-LIBLIGHTS += lights.msm8953
-LIBLIGHTS += lights.msm8998
 LIBLIGHTS += lights.msmnile
-LIBLIGHTS += lights.sdmshrike
-LIBLIGHTS += lights.kona
-LIBLIGHTS += lights.sdm660
-LIBLIGHTS += lights.sdm845
-LIBLIGHTS += lights.apq8098_latv
-LIBLIGHTS += lights.sdm710
-LIBLIGHTS += lights.qcs605
-LIBLIGHTS += lights.$(MSMSTEPPE)
-LIBLIGHTS += lights.$(TRINKET)
 
 #LIBHWCOMPOSER
-LIBHWCOMPOSER := hwcomposer.msm8660
-LIBHWCOMPOSER += hwcomposer.msm8960
-LIBHWCOMPOSER += hwcomposer.msm8974
-LIBHWCOMPOSER += hwcomposer.msm8226
-LIBHWCOMPOSER += hwcomposer.msm8610
-LIBHWCOMPOSER += hwcomposer.msm8909
-LIBHWCOMPOSER += hwcomposer.msm8916
-LIBHWCOMPOSER += hwcomposer.msm8994
-LIBHWCOMPOSER += hwcomposer.msm8992
-LIBHWCOMPOSER += hwcomposer.apq8084
-LIBHWCOMPOSER += hwcomposer.mpq8092
-LIBHWCOMPOSER += hwcomposer.msm7k
-LIBHWCOMPOSER += hwcomposer.msm7630_surf
-LIBHWCOMPOSER += hwcomposer.msm7630_fusion
-LIBHWCOMPOSER += hwcomposer.msm7627_surf
-LIBHWCOMPOSER += hwcomposer.msm7627_6x
-LIBHWCOMPOSER += hwcomposer.msm7627a
-LIBHWCOMPOSER += hwcomposer.msm8996
-LIBHWCOMPOSER += hwcomposer.msm8952
-LIBHWCOMPOSER += hwcomposer.msm8937
-LIBHWCOMPOSER += hwcomposer.msm8953
-LIBHWCOMPOSER += hwcomposer.msm8998
 LIBHWCOMPOSER += hwcomposer.msmnile
-LIBHWCOMPOSER += hwcomposer.sdmshrike
-LIBHWCOMPOSER += hwcomposer.kona
-LIBHWCOMPOSER += hwcomposer.sdm660
-LIBHWCOMPOSER += hwcomposer.sdm845
-LIBHWCOMPOSER += hwcomposer.apq8098_latv
-LIBHWCOMPOSER += hwcomposer.sdm710
-LIBHWCOMPOSER += hwcomposer.qcs605
-LIBHWCOMPOSER += hwcomposer.$(MSMSTEPPE)
-LIBHWCOMPOSER += hwcomposer.$(TRINKET)
 
 #LIBAUDIOPARAM -- Exposing AudioParameter as dynamic library for SRS TruMedia to work
 LIBAUDIOPARAM := libaudioparameter
@@ -715,9 +449,6 @@ RF4CE := RemoTI_RNP.cfg
 RF4CE += rf4ce
 
 #SENSORS_HARDWARE
-SENSORS_HARDWARE := sensors.msm7630_surf
-SENSORS_HARDWARE += sensors.msm7630_fusion
-SENSORS_HARDWARE += sensors.msm8996_auto
 SENSORS_HARDWARE += sensors.msmnile.asm_auto
 
 #SOFTAP
@@ -729,16 +460,6 @@ STK := Stk
 
 #STM LOG
 STMLOG := libstm-log
-
-#THERMAL_HAL
-THERMAL_HAL := thermal.msm8998
-THERMAL_HAL += thermal.sdm845
-THERMAL_HAL += thermal.sdm710
-THERMAL_HAL += thermal.qcs605
-THERMAL_HAL += thermal.sdm660
-THERMAL_HAL += thermal.msm8996
-THERMAL_HAL += thermal.msm8953
-THERMAL_HAL += thermal.msm8937
 
 #TSLIB_EXTERNAL
 TSLIB_EXTERNAL := corgi
@@ -753,10 +474,6 @@ TSLIB_EXTERNAL += tstest
 TSLIB_EXTERNAL += tsutils
 TSLIB_EXTERNAL += tscalib
 TSLIB_EXTERNAL += ts
-
-#VR_HAL
-VR_HAL := vr.msm8998
-VR_HAL += vr.sdm845
 
 #QRGND
 QRGND := qrngd
@@ -809,7 +526,6 @@ CRDA := crda
 CRDA += regdbdump
 CRDA += regulatory.bin
 CRDA += linville.key.pub.pem
-CRDA += init.crda.sh
 
 #WLAN
 WLAN := prima_wlan.ko
@@ -1028,7 +744,7 @@ endif
 
 # gps/location secuity configuration file
 PRODUCT_COPY_FILES += \
-    device/qcom/common/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
+    device/xiaomi/vayu/sec_config:$(TARGET_COPY_OUT_VENDOR)/etc/sec_config
 
 #copy codecs_xxx.xml to (TARGET_COPY_OUT_VENDOR)/etc/
 PRODUCT_COPY_FILES += \
@@ -1039,12 +755,12 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_c2_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_c2_video.xml \
-    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
+    device/xiaomi/vayu/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles.xml \
 
 ifneq ($(TARGET_ENABLE_QC_AV_ENHANCEMENTS),true)
 PRODUCT_COPY_FILES += \
-    device/qcom/common/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
-    device/qcom/common/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
+    device/xiaomi/vayu/media/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
+    device/xiaomi/vayu/media/media_profiles.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
 endif
 
 ifeq ($(strip $(TARGET_USES_NQ_NFC)),true)
@@ -1056,45 +772,14 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.nfc.hcef.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.nfc.hcef.xml
 endif
 
-ifneq ($(TARGET_NOT_SUPPORT_VULKAN),true)
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute-0.xml
-endif
-
-# include additional build utilities
--include device/qcom/common/utils.mk
-
 # Copy the vulkan feature level file.
 # Targets listed in VULKAN_FEATURE_LEVEL_0_TARGETS_LIST supports only vulkan feature level 0.
-ifneq ($(TARGET_NOT_SUPPORT_VULKAN),true)
-ifeq ($(call is-product-in-list,$(VULKAN_FEATURE_LEVEL_0_TARGETS_LIST)), true)
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.vulkan.level-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-0.xml
-else
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.vulkan.level-1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.level-1.xml
-endif
-endif
+    frameworks/native/data/etc/android.hardware.vulkan.compute-0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.compute-0.xml
 
-ifneq ($(TARGET_NOT_SUPPORT_VULKAN),true)
-ifeq ($(TARGET_SUPPORT_VULKAN_VERSION_1_1),false)
-PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.vulkan.version-1_0_3.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_0_3.xml
-else
-PRODUCT_COPY_FILES += frameworks/native/data/etc/android.hardware.vulkan.version-1_1.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.vulkan.version-1_1.xml
-endif
-endif
-
-ifneq ($(strip $(TARGET_USES_RRO)),true)
-# enable overlays to use our version of
-# source/resources etc.
-ifneq ($(strip $(TARGET_BOARD_AUTO)),true)
-DEVICE_PACKAGE_OVERLAYS += device/qcom/common/device/overlay
-PRODUCT_PACKAGE_OVERLAYS += device/qcom/common/product/overlay
-else
-DEVICE_PACKAGE_OVERLAYS += device/qcom/common/automotive/device/overlay
-PRODUCT_PACKAGE_OVERLAYS += device/qcom/common/automotive/product/overlay
-endif
-endif
+DEVICE_PACKAGE_OVERLAYS += device/xiaomi/vayu/device/overlay
+PRODUCT_PACKAGE_OVERLAYS += device/xiaomi/vayu/product/overlay
 
 # Set up flags to determine the kernel version
 ifeq ($(TARGET_KERNEL_VERSION),)
@@ -1148,27 +833,11 @@ endif
 PRODUCT_PACKAGES += \
     vndk-sp \
 
-# Temporary handling
-#
-# Include config.fs get only if legacy device/qcom/<target>/android_filesystem_config.h
-# does not exist as they are mutually exclusive.  Once all target's android_filesystem_config.h
-# have been removed, TARGET_FS_CONFIG_GEN should be made unconditional.
-DEVICE_CONFIG_DIR := $(dir $(firstword $(subst ]],, $(word 2, $(subst [[, ,$(_node_import_context))))))
-ifeq ($(wildcard $(DEVICE_CONFIG_DIR)/android_filesystem_config.h),)
-  TARGET_FS_CONFIG_GEN := device/qcom/common/config.fs
-else
-  $(warning **********)
-  $(warning TODO: Need to replace legacy $(DEVICE_CONFIG_DIR)android_filesystem_config.h with config.fs)
-  $(warning **********)
-endif
+TARGET_FS_CONFIG_GEN := device/xiaomi/vayu/config.fs
 
-ifeq ($(TARGET_HAS_LOW_RAM),true)
-    PRODUCT_PROPERTY_OVERRIDES += \
-        persist.vendor.qcomsysd.enabled=0
-else
-    PRODUCT_PROPERTY_OVERRIDES += \
-        persist.vendor.qcomsysd.enabled=1
-endif
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.qcomsysd.enabled=1
 
 PRODUCT_PACKAGES += liboemaids_system
 PRODUCT_PACKAGES += liboemaids_vendor
